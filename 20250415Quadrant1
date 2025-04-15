@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriTech Quadrant</title>
+  <style>
+    body { font-family: sans-serif; }
+    .quadrant {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      border: 2px solid #ccc;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .quadrant-label {
+      position: absolute;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .quadrant-label.tl { top: 10px; left: 10px; }
+    .quadrant-label.tr { top: 10px; right: 10px; }
+    .quadrant-label.bl { bottom: 10px; left: 10px; }
+    .quadrant-label.br { bottom: 10px; right: 10px; }
+
+    .dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+    }
+    .dot-label {
+      position: absolute;
+      font-size: 12px;
+      white-space: nowrap;
+      transform: translate(-50%, -50%);
+    }
+    .leaders { background-color: #28a745; }
+    .visionaries { background-color: #17a2b8; }
+    .challengers { background-color: #ffc107; }
+    .niche { background-color: #dc3545; }
+
+    .tooltip {
+      position: absolute;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+      max-width: 250px;
+      font-size: 14px;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center">AgriTech Quadrant: Ability to Execute vs. Completeness of Vision</h2>
+  <div class="quadrant" id="quadrant">
+    <div class="quadrant-label tl">Leaders</div>
+    <div class="quadrant-label tr">Visionaries</div>
+    <div class="quadrant-label bl">Challengers</div>
+    <div class="quadrant-label br">Niche Players</div>
+    <div class="tooltip" id="tooltip"><span class="close-btn" onclick="tooltip.style.display='none'">&times;</span><div id="tooltip-content"></div></div>
+  </div>
+
+  <script>
+    const companies = [
+      { name: "Farmforce", x: 75, y: 75, description: "Farmforce offers smallholder traceability and compliance across 65+ countries. Solid execution, vision mostly first-mile focused." },
+      { name: "Koltiva", x: 85, y: 80, description: "Comprehensive solution for cocoa, palm, seafood. Strong execution and vision in multi-crop sustainability." },
+      { name: "Acclym", x: 90, y: 85, description: "Enterprise-grade risk analytics and EUDR tools, used by General Mills, Nestlé, AB InBev." },
+      { name: "Dimitra", x: 40, y: 85, description: "Bold AI + blockchain stack for smallholders; vision strong, execution early-stage." },
+      { name: "Meridia", x: 80, y: 30, description: "Geo-mapping and land verification for compliance. Execution strong, vision narrowly scoped." },
+      { name: "Satelligence", x: 80, y: 70, description: "Remote-sensing platform for deforestation monitoring. Vision aligned with EUDR, strong in execution." },
+      { name: "Sourcemap", x: 85, y: 90, description: "Pioneer in traceability mapping from MIT. Strong enterprise compliance and due diligence network." }
+    ];
+
+    const quadrant = document.getElementById("quadrant");
+    const tooltip = document.getElementById("tooltip");
+    const tooltipContent = document.getElementById("tooltip-content");
+
+    companies.forEach(({ name, x, y, description }) => {
+      const dot = document.createElement("div");
+      dot.classList.add("dot");
+      dot.style.left = `${x}%`;
+      dot.style.top = `${100 - y}%`;
+
+      // Add quadrant color class
+      if (x >= 50 && y >= 50) dot.classList.add("leaders");
+      else if (x < 50 && y >= 50) dot.classList.add("challengers");
+      else if (x >= 50 && y < 50) dot.classList.add("visionaries");
+      else dot.classList.add("niche");
+
+      // Label
+      const label = document.createElement("div");
+      label.classList.add("dot-label");
+      label.style.left = `${x}%`;
+      label.style.top = `${100 - y + 2}%`;
+      label.textContent = name;
+
+      dot.addEventListener("click", (e) => {
+        tooltipContent.innerHTML = `<strong>${name}</strong><br>${description}`;
+        tooltip.style.left = `${x}%`;
+        tooltip.style.top = `${100 - y}%`;
+        tooltip.style.display = "block";
+      });
+
+      quadrant.appendChild(dot);
+      quadrant.appendChild(label);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("dot") && !e.target.classList.contains("close-btn")) {
+        tooltip.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
