@@ -57,22 +57,21 @@
     }
     .center-line {
     position: absolute;
-    background-color: #aaa;
-    z-index: 0;
+    z-index: 1;
     }
     .vertical-line {
-    width: 1px;
+    width: 0;
     height: 100%;
     left: 50%;
     top: 0;
-    border-left: 1px dotted #aaa;
+    border-left: 2px dotted #aaa;
     }
     .horizontal-line {
     width: 100%;
-    height: 1px;
+    height: 0;
     top: 50%;
     left: 0;
-    border-top: 1px dotted #aaa;
+    border-top: 2px dotted #aaa;
     }
   </style>
 </head>
@@ -168,31 +167,34 @@
         <div class="dot" style="left:30%; top:70%; background-color:#092435;" onclick="showTooltip(event, 'Palmoil.io', `Deforestation alert system for palm oil sourcing.`)"></div>
         <div class="dot-label" style="left:30%; top:72%;">Palmoil.io</div>
         
-  </div>
-  <div style="text-align: center; margin-top: 10px;">
-    <svg width="300" height="30">
-      <defs>
-        <marker id="arrowhead" markerWidth="10" markerHeight="7" 
-                refX="10" refY="3.5" orient="auto">
-          <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
-        </marker>
-      </defs>
-      <line x1="0" y1="15" x2="280" y2="15" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-      <text x="140" y="12" fill="#333" font-size="14" text-anchor="middle">Completeness of Vision</text>
-    </svg>
-  </div>
-  <div style="position: absolute; top: 100px; left: 0; transform: rotate(-90deg); transform-origin: left top;">
-    <svg width="300" height="30">
-      <defs>
-        <marker id="arrowhead2" markerWidth="10" markerHeight="7" 
-                refX="10" refY="3.5" orient="auto">
-          <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
-        </marker>
-      </defs>
-      <line x1="0" y1="15" x2="280" y2="15" stroke="#333" stroke-width="2" marker-end="url(#arrowhead2)" />
-      <text x="140" y="12" fill="#333" font-size="14" text-anchor="middle">Ability to Execute</text>
-    </svg>
-  </div>
+        <div style="position: relative; height: 40px; width: 100%; max-width: 900px; margin: 0 auto;">
+          <svg width="100%" height="40">
+            <defs>
+              <marker id="arrowhead-horizontal" markerWidth="10" markerHeight="7" 
+                      refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+              </marker>
+            </defs>
+            <line x1="0" y1="20" x2="100%" y2="20" stroke="#333" stroke-width="2" marker-end="url(#arrowhead-horizontal)" />
+            <text x="0" y="15" fill="#333" font-size="14" dominant-baseline="middle" text-anchor="start">
+              Completeness of Vision
+            </text>
+          </svg>
+        </div>
+        <div style="position: absolute; top: 50px; left: calc(50% - 450px); height: 600px;">
+          <svg height="600" width="40">
+            <defs>
+              <marker id="arrowhead-vertical" markerWidth="10" markerHeight="7" 
+                      refX="10" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+              </marker>
+            </defs>
+            <line x1="20" y1="580" x2="20" y2="0" stroke="#333" stroke-width="2" marker-end="url(#arrowhead-vertical)" />
+            <text x="0" y="580" fill="#333" font-size="14" text-anchor="start" dominant-baseline="middle" transform="rotate(-90, 0, 580)">
+              Ability to Execute
+            </text>
+          </svg>
+        </div>
 <script>
   const tooltip = document.getElementById('tooltip');
   const content = document.getElementById('tooltip-content');
